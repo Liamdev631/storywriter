@@ -63,7 +63,7 @@ def change_password():
     if request.method == 'POST':
         current_password = request.form.get('current_password')
         new_password = request.form.get('new_password')
-        user = User.query.get(current_user.get_id())
+        user = User.query.get(current_user.id)
         if user is not None and user.check_password(current_password):
             user.set_password(new_password)
             db.session.commit()

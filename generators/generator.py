@@ -3,5 +3,5 @@ from abc import ABC, abstractstaticmethod
 
 class AbstractPromptGen(ABC):
     @abstractstaticmethod
-    def generate() -> str:
+    def generate() -> PromptTemplate:
         return "@abstractstaticmethod called!"
