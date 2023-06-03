@@ -52,8 +52,8 @@ class CharacterGenerator(Generator):
         (Wisdom: {wisdom}).
         """
         prompt: str = PromptTemplate.from_template(template=template).format(**params)
-        st.header('Prompt')
-        st.markdown(prompt)
+        # st.header('Prompt')
+        # st.markdown(prompt)
         
         result: str = llm(prompt)
         st.header('Result')
