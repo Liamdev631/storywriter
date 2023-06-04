@@ -7,6 +7,8 @@ from langchain.llms.base import BaseLLM
 import streamlit as st
 import random
 
+st.set_page_config(layout="wide")
+
 st.title('Storywriter')
 
 option = st.selectbox(
@@ -50,6 +52,13 @@ class CharacterGenerator(Generator):
         (Intelligence: {intelligence}).
         (Charistma: {charisma}).
         (Wisdom: {wisdom}).
+        
+        Personality traits: 
+        (Openness: {openness}%).
+        (Conscientiousness: {conscientiousness}%).
+        (Extraversion: {extraversion}%).
+        (Agreeableness: {agreeableness}%).
+        (Neuroticism: {neuroticism}%).
         """
         prompt: str = PromptTemplate.from_template(template=template).format(**params)
         # st.header('Prompt')
@@ -96,45 +105,63 @@ def random_selection(parameter, options):
 
 def load_tool(selected_option):
     p: dict = {}
+    col1_outer, col2_outer = st.columns(2)
     
-    if selected_option == 'Worlds':
-        p['edition'] = st.selectbox('Edition', ('5th', '4th', '3rd', '2nd', '1st'))
-        p['magic_prevalance'] = st.slider('Magic Prevalance', value=10, min_value=1, max_value=100, step=1)
-        p['world_age'] = st.slider('World Age (years)', value=5000, min_value=0, max_value=10000, step=100)
-        if st.button('Generate'):
-            WorldGenerator.OnGenerate(llm, p)
-            
-    if selected_option == 'Characters':
-        col1, col2 = st.columns(2)
-        
-        with col1:
+    with col1_outer:
+        if selected_option == 'Worlds':
             p['edition'] = st.selectbox('Edition', ('5th', '4th', '3rd', '2nd', '1st'))
-            p['age'] = st.number_input('Age', value=20, min_value=1)
+            p['magic_prevalance'] = st.slider('Magic Prevalance', value=10, min_value=1, max_value=100, step=1)
+            p['world_age'] = st.slider('World Age (years)', value=5000, min_value=0, max_value=10000, step=100)
+            if st.button('Generate'):
+                WorldGenerator.OnGenerate(llm, p)
+                
+        if selected_option == 'Characters':
+            col1, col2, col3 = st.columns(3)
             
+            with col1:
+                p['edition'] = st.selectbox('Edition', ('5th', '4th', '3rd', '2nd', '1st'))
+                p['age'] = st.number_input('Age', value=20, min_value=1)
+                p['race_primary'] = st.selectbox('Primary Race', races_list, index=races_list.index('Human'))
+                p['race_secondary'] = st.selectbox('Secondary Race', races_list, index=races_list.index('None'))
+                p['alignment'] = st.selectbox('Alignment', alignment_list, index=alignment_list.index('Random'))
+                p['primary_class'] = st.selectbox('Primary Class', class_list, index=class_list.index('Random'))
+                p['secondary_class'] = st.selectbox('Secondary Class', class_list, index=class_list.index('None'))
+                p['background'] = st.selectbox('Background', background_list, index=background_list.index('Random'))
+                
+                # Randomly fill parameters designated as such
+                p['race_primary'] = random_selection(p['race_primary'], races_list)
+                p['race_secondary'] = random_selection(p['race_secondary'], races_list)
+                p['alignment'] = random_selection(p['alignment'], alignment_list)
+                p['primary_class'] = random_selection(p['primary_class'], class_list)
+                p['secondary_class'] = random_selection(p['secondary_class'], class_list)
+                p['background'] = random_selection(p['background'], background_list)
             
-            p['race_primary'] = st.selectbox('Primary Race', races_list, index=races_list.index('Human'))
-            p['race_secondary'] = st.selectbox('Secondary Race', races_list, index=races_list.index('None'))
-            p['alignment'] = st.selectbox('Alignment', alignment_list, index=alignment_list.index('Random'))
-            p['primary_class'] = st.selectbox('Primary Class', class_list, index=class_list.index('Random'))
-            p['secondary_class'] = st.selectbox('Secondary Class', class_list, index=class_list.index('None'))
-            p['background'] = st.selectbox('Background', background_list, index=background_list.index('Random'))
-            
-            # Randomly fill parameters designated as such
-            p['race_primary'] = random_selection(p['race_primary'], races_list)
-            p['race_secondary'] = random_selection(p['race_secondary'], races_list)
-            p['alignment'] = random_selection(p['alignment'], alignment_list)
-            p['primary_class'] = random_selection(p['primary_class'], class_list)
-            p['secondary_class'] = random_selection(p['secondary_class'], class_list)
-            p['background'] = random_selection(p['background'], background_list)
-        
-        with col2:
-            p['dexterity'] = st.slider('Dexterity', value=5, min_value=1, max_value=20)
-            p['strength'] = st.slider('Strength', value=5, min_value=1, max_value=20)
-            p['constitution'] = st.slider('Constitution', value=5, min_value=1, max_value=20)
-            p['intelligence'] = st.slider('Intelligence', value=5, min_value=1, max_value=20)
-            p['charisma'] = st.slider('Charisma', value=5, min_value=1, max_value=20)
-            p['wisdom'] = st.slider('Wisdom', value=5, min_value=1, max_value=20)
-        
+            with col2:
+                p['dexterity'] = st.slider('Dexterity', value=5, min_value=1, max_value=20, help="Dexterity measures agility, reflexes, and balance. This is important for characters that rely on speed and precision.")
+                
+                p['strength'] = st.slider('Strength', value=5, min_value=1, max_value=20, help="Strength measures physical power and carrying capacity. This is important for characters that engage in hand-to-hand combat.")
+                
+                p['constitution'] = st.slider('Constitution', value=5, min_value=1, max_value=20, help="Constitution measures health, stamina, and vital force. This is important for characters that need to withstand damage or endure harsh conditions.")
+                
+                p['intelligence'] = st.slider('Intelligence', value=5, min_value=1, max_value=20, help="Intelligence measures mental acuity, information recall, and analytical skill. This is important for characters that rely on knowledge and magic.")
+                
+                p['charisma'] = st.slider('Charisma', value=5, min_value=1, max_value=20, help="Charisma measures ability to lead, and influence others. This is important for characters that rely on personal magnetism and diplomacy.")
+                
+                p['wisdom'] = st.slider('Wisdom', value=5, min_value=1, max_value=20, help="Wisdom measures awareness, intuition, and insight. This is important for characters that rely on perception and wisdom-based magic.")
+
+                
+            with col3:
+                p['openness'] = st.slider('Openness', value=50, min_value=0, max_value=100, step=5, help="This trait features characteristics such as imagination and insight. A high score in this trait can represent a character who is creative, adventurous, and curious. A low score can represent a character who is practical, conventional, and prefers routine.")
+
+                p['conscientiousness'] = st.slider('Conscientiousness', value=50, min_value=0, max_value=100, step=5, help="This trait is characterized by high levels of thoughtfulness, good impulse control, and goal-directed behaviors. High scorers are organized and mindful of details, while low scorers may be more spontaneous and disorganized.")
+
+                p['extraversion'] = st.slider('Extraversion', value=50, min_value=0, max_value=100, step=5, help="This trait includes characteristics such as excitability, sociability, talkativeness, assertiveness, and high amounts of emotional expressiveness. A high scorer could be outgoing and energetic, while a low scorer might be more solitary or reserved.")
+
+                p['agreeableness'] = st.slider('Agreeableness', value=50, min_value=0, max_value=100, step=5, help="This trait includes attributes such as trust, altruism, kindness, affection, and other prosocial behaviors. Characters with high agreeableness tend to be cooperative and considerate, while those with low agreeableness may be more competitive and even manipulative.")
+
+                p['neuroticism'] = st.slider('Neuroticism', value=50, min_value=0, max_value=100, step=5, help="This trait is characterized by sadness, moodiness, and emotional instability. Individuals who score high in neuroticism often experience mood swings, anxiety, irritability, and sadness. Those who score low in neuroticism tend to be more stable and emotionally resilient.")
+    
+    with col2_outer:
         if st.button('Generate'):
             CharacterGenerator.OnGenerate(llm, p)
 
