@@ -8,11 +8,11 @@ class CharacterGenerator(Generator):
     def load_gui(self):
         params = {}
         
-        races_list:         list[str] = load_list("resources/dnd/races.csv")
-        alignment_list:     list[str] = load_list("resources/dnd/alignments.csv")
-        class_list:         list[str] = load_list("resources/dnd/classes.csv")
-        background_list:    list[str] = load_list("resources/dnd/backgrounds.csv")
-        editions_list:      list[str] = load_list("resources/dnd/editions.csv")
+        races_list:         list[str] = load_list("app/resources/dnd/races.csv")
+        alignment_list:     list[str] = load_list("app/resources/dnd/alignments.csv")
+        class_list:         list[str] = load_list("app/resources/dnd/classes.csv")
+        background_list:    list[str] = load_list("app/resources/dnd/backgrounds.csv")
+        editions_list:      list[str] = load_list("app/resources/dnd/editions.csv")
 
         params['edition'] = st.selectbox('Edition', options=editions_list, key='edition', index=get_index(editions_list, st.session_state['params'].get('edition', None)))
         

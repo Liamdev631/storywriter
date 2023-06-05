@@ -1,15 +1,16 @@
 import streamlit as st
 import os
 
-os.environ['OPENAI_API_KEY'] = st.text_input(label='OpenAI API Key', value=st.session_state['openai_api_key'])
+st.set_page_config(layout="wide")
+
+st.session_state['key'] = st.text_input(label='OpenAI API Key', value='')
 
 from langchain import OpenAI
 from langchain.llms import OpenAI, OpenAIChat
 from langchain.llms.base import BaseLLM
 import pandas as pd
 from generators import Generator, CharacterGenerator
-
-st.set_page_config(layout="wide")
+from openai.error import AuthenticationError
 
 # Checking if the session state is already defined
 if 'params' not in st.session_state:
@@ -17,9 +18,6 @@ if 'params' not in st.session_state:
     st.session_state['params'] = {}
 
 st.title('Storywriter')
-
-#llm: BaseLLM = OpenAIChat(client=None, model_name='gpt-3.5-turbo')
-llm: BaseLLM = OpenAI(client=None, model_name='text-davinci-003', max_tokens=1024)
 
 # Retrieve the generator instance
 selected_generator: Generator = CharacterGenerator()
@@ -35,5 +33,14 @@ with options_col:
 
 if st.button('Generate'):
     with result_col:
-        st.session_state['result'] = selected_generator.generate(llm, params)
-        st.markdown(st.session_state['result'], unsafe_allow_html=False)
+        if st.session_state['key'] != '':
+            try:
+                #llm: BaseLLM = OpenAIChat(client=None, model_name='gpt-3.5-turbo')
+                llm: BaseLLM = OpenAI(client=None, model_name='text-davinci-003', max_tokens=1024, openai_api_key=st.session_state['key'])
+                st.session_state['result'] = selected_generator.generate(llm, params)
+                st.markdown(st.session_state['result'], unsafe_allow_html=False)
+            except AuthenticationError:
+                st.markdown('Error authenticating! Check your OpenAI AI key and try again.')
+                
+        else:
+            st.markdown('You must set the OpenAI API Key!')
