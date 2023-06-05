@@ -46,7 +46,7 @@ displayEnabled = true
 # Controls whether uncaught app exceptions are displayed in the browser. By default, this is set to True and Streamlit displays app exceptions and associated tracebacks in the browser.
 # If set to False, an exception will result in a generic message being shown in the browser, and exceptions and tracebacks will be printed to the console only.
 # Default: true
-# showErrorDetails = true
+# showErrorDetails = false
 
 
 [runner]
@@ -147,7 +147,7 @@ baseUrlPath = ""
 # This is used to: - Set the correct URL for CORS and XSRF protection purposes. - Show the URL on the terminal - Open the browser
 # Default: 'localhost'
 # The value below was set in /home/amit/.streamlit/config.toml
-serverAddress = "localhost"
+serverAddress = "0.0.0.0"
 
 # Whether to send usage statistics to Streamlit.
 # Default: true
