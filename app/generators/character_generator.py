@@ -18,12 +18,14 @@ class CharacterGenerator(Generator):
         background_list:    list[str] = load_list("app/resources/dnd/backgrounds.csv")
         editions_list:      list[str] = load_list("app/resources/dnd/editions.csv")
 
-        params['edition'] = st.selectbox('Edition', options=editions_list, key='edition', index=get_index(editions_list, st.session_state['params'].get('edition', None)))
         
-        col1, col2, col3 = st.columns(3)
+        col1, col2, col3, col4 = st.columns(4)
         
         with col1:
+            params['edition'] = st.selectbox('Edition', options=editions_list, key='edition', index=get_index(editions_list, st.session_state['params'].get('edition', None)))
             params['age'] = st.number_input('Age', value=st.session_state['params'].get('age', 20), min_value=1)
+            
+        with col2:
             params['race_primary'] = st.selectbox('Primary Race', races_list, key='race_primary', index=get_index(races_list, st.session_state['params'].get('race_primary', 'Human')))
             params['race_secondary'] = st.selectbox('Secondary Race', races_list, key='race_secondary', index=get_index(races_list, st.session_state['params'].get('race_secondary', 'None')))
             params['alignment'] = st.selectbox('Alignment', alignment_list, key='alignment', index=get_index(alignment_list, st.session_state['params'].get('alignment', None)))
@@ -31,7 +33,7 @@ class CharacterGenerator(Generator):
             params['secondary_class'] = st.selectbox('Secondary Class', class_list, key='secondary_class', index=get_index(class_list, st.session_state['params'].get('secondary_class', 'None')))
             params['background'] = st.selectbox('Background', background_list, key='background', index=get_index(background_list, st.session_state['params'].get('background', None)))
             
-        with col2:
+        with col3:
             params['dexterity'] = st.slider('Dexterity', value=st.session_state['params'].get('dexterity', 5), min_value=1, max_value=20)
             params['strength'] = st.slider('Strength', value=st.session_state['params'].get('strength', 5), min_value=1, max_value=20)
             params['constitution'] = st.slider('Constitution', value=st.session_state['params'].get('constitution', 5), min_value=1, max_value=20)
@@ -39,7 +41,7 @@ class CharacterGenerator(Generator):
             params['charisma'] = st.slider('Charisma', value=st.session_state['params'].get('charisma', 5), min_value=1, max_value=20)
             params['wisdom'] = st.slider('Wisdom', value=st.session_state['params'].get('wisdom', 5), min_value=1, max_value=20)
                 
-        with col3:
+        with col4:
             params['openness'] = st.slider('Openness', value=st.session_state['params'].get('openness', 50), min_value=0, max_value=100, step=5)
             params['conscientiousness'] = st.slider('Conscientiousness', value=st.session_state['params'].get('conscientiousness', 50), min_value=0, max_value=100, step=5)
             params['extraversion'] = st.slider('Extraversion', value=st.session_state['params'].get('extraversion', 50), min_value=0, max_value=100, step=5)
