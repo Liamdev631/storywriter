@@ -45,9 +45,6 @@ if st.session_state['selected_generator_name'] == 'None':
     # Subtitle or tagline
     st.subheader('Unleash your Imagination, Power your Storytelling')
 
-    # Display the logo
-    st.image('url-to-the-logo-image')
-
     # Introduction about the app
     st.write("""
     **StoryWriter** brings the magic of artificial intelligence to your fingertips, making your stories, games, and worlds rich, immersive, and uniquely yours. This is your one-stop-shop for generating custom characters, thrilling quests, unique magic items, and so much more.
