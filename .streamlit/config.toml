@@ -46,7 +46,7 @@
 # Controls whether uncaught app exceptions and deprecation warnings are displayed in the browser. By default, this is set to True and Streamlit displays app exceptions and associated tracebacks, and deprecation warnings, in the browser.
 # If set to False, an exception or deprecation warning will result in a generic message being shown in the browser, and exceptions, tracebacks, and deprecation warnings will be printed to the console only.
 # Default: true
-# showErrorDetails = true
+showErrorDetails = false
 
 # Change the visibility of items in the toolbar, options menu, and settings dialog (top right of the app).
 # Allowed values: * "auto" : Show the developer options if the app is accessed through localhost and hide them otherwise. * "developer" : Show the developer options. * "viewer" : Hide the developer options. * "minimal" : Show only options set externally (e.g. through Streamlit Community Cloud) or through st.set_page_config. If there are no options left, hide the menu.
@@ -96,11 +96,11 @@
 
 # Symmetric key used to produce signed cookies. If deploying on multiple replicas, this should be set to the same value across all replicas to ensure they all share the same secret.
 # Default: randomly generated secret key.
-# cookieSecret = "7ffd21f13dd1490420fdefc035262a60d64068e70e5fb35bb475422cbeb5913e"
+cookieSecret = "b99962fccd6c609c02c0dc879acbdd8b99d0a071c5f0a49d7a71f2a8351e3d9d"
 
 # If false, will attempt to open a browser window on start.
 # Default: false unless (1) we are on a Linux box where DISPLAY is unset, or (2) we are running in the Streamlit Atom plugin.
-# headless = false
+headless = true
 
 # Automatically rerun script when the file is modified on disk.
 # Default: false
@@ -108,7 +108,7 @@
 
 # The address where the server will listen for client and browser connections. Use this if you want to bind the server to a specific address. If set, the server will only be accessible from this address, and not from any aliases (like localhost).
 # Default: (unset)
-# address =
+address =
 
 # The port where the server will listen for browser connections.
 # Default: 8501
@@ -158,7 +158,7 @@
 # Internet address where users should point their browsers in order to connect to the app. Can be IP address or DNS name and path.
 # This is used to: - Set the correct URL for CORS and XSRF protection purposes. - Show the URL on the terminal - Open the browser
 # Default: "localhost"
-# serverAddress = "localhost"
+serverAddress = "http://18.190.160.239"
 
 # Whether to send usage statistics to Streamlit.
 # Default: true
@@ -191,7 +191,7 @@
 [theme]
 
 # The preset Streamlit theme that your custom theme inherits from. One of "light" or "dark".
-# base =
+base = dark
 
 # Primary accent color for interactive elements.
 # primaryColor =
