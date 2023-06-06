@@ -18,9 +18,11 @@ class WorldGenerator(Generator):
     
     @staticmethod
     def generate(llm, params: dict) -> str:
-        template: str = "Design a {world_age} year old world for a {edition} edition campaign. In this world, magic is available to {magic_prevalance}% of the population."
-        system_message_prompt = SystemMessagePromptTemplate.from_template("You are an expert DnD Dungeon Master who helps players flesh out their character designs. Given a rough idea of what they're looking for, you help players dreams meet reality")
-        human_message_prompt = HumanMessagePromptTemplate.from_template(template).format(**params)
+        system_message_template: str = "You are an expert DnD Dungeon Master who builds magnificent and diverse worlds for fantasy gaming. Given a rough idea of what they're looking for, you help players dreams meet reality. You must stick to {edition} edition rules."
+        system_message_prompt = SystemMessagePromptTemplate.from_template(system_message_template).format(**params)
+        
+        human_message_template: str = "Civilization and culture first appeared on this world {world_age} years ago. In this world, magic is available to {magic_prevalance}% of the population."
+        human_message_prompt = HumanMessagePromptTemplate.from_template(human_message_template).format(**params)
         
         chat_prompt = ChatPromptTemplate.from_messages([system_message_prompt, human_message_prompt])
         chain = LLMChain(llm=llm, prompt=chat_prompt)
