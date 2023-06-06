@@ -7,6 +7,7 @@ from langchain.llms.base import BaseLLM
 from generators import Generator, CharacterGenerator, WorldGenerator, ItemGenerator, QuestGenerator
 from openai.error import AuthenticationError, RateLimitError
 import pandas as pd
+from pages import draw_landing
 
 # Checking if the session state is already defined
 if 'params' not in st.session_state:
@@ -39,6 +40,7 @@ def get_generator_by_name(generator_name: str) -> Generator:
             return WorldGenerator() # Default
         
 if st.session_state['selected_generator_name'] == 'None':
+    draw_landing()
     st.stop()
 
 # Retrieve the generator instance
