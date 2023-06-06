@@ -5,7 +5,7 @@ from langchain.llms import OpenAI
 from langchain.chat_models import ChatOpenAI
 from langchain.llms.base import BaseLLM
 from generators import Generator, CharacterGenerator, WorldGenerator, ItemGenerator, QuestGenerator
-from openai.error import AuthenticationError
+from openai.error import AuthenticationError, RateLimitError
 import pandas as pd
 
 # Checking if the session state is already defined
@@ -60,6 +60,8 @@ if st.button('Generate'):
                 st.markdown(st.session_state['result'], unsafe_allow_html=False)
             except AuthenticationError:
                 st.warning('Error authenticating! Check your OpenAI AI key and try again.')
+            except RateLimitError:
+                st.warning('Rate limit reached. Just wait a minute and try again, because of the key everyone is sharing.')
                 
         else:
             st.markdown('You must set the OpenAI API Key!')
