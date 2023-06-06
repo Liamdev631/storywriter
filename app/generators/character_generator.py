@@ -78,11 +78,11 @@ class CharacterGenerator(Generator):
         (Agreeableness: {agreeableness}%).
         (Neuroticism: {neuroticism}%).
         """
-        human_message_prompt = HumanMessagePromptTemplate.from_template(human_message_template).format(**params)
+        human_message_prompt = HumanMessagePromptTemplate.from_template(human_message_template)
         
-        chat_prompt = ChatPromptTemplate.from_messages([system_message_prompt])
+        chat_prompt = ChatPromptTemplate.from_messages([system_message_prompt, human_message_prompt])
         chain = LLMChain(llm=llm, prompt=chat_prompt)
         
-        return chain.run(["Please generate a character sheet with that info"])
+        return chain.run(**params)
 
 
