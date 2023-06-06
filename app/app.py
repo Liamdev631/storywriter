@@ -5,12 +5,11 @@ st.set_page_config(layout="wide")
 
 st.session_state['key'] = st.text_input(label='OpenAI API Key', value='')
 
-from langchain import OpenAI
 from langchain.llms import OpenAI, OpenAIChat
 from langchain.llms.base import BaseLLM
-import pandas as pd
 from generators import Generator, CharacterGenerator
 from openai.error import AuthenticationError
+import pandas as pd
 
 # Checking if the session state is already defined
 if 'params' not in st.session_state:
@@ -35,8 +34,8 @@ if st.button('Generate'):
     with result_col:
         if st.session_state['key'] != '':
             try:
-                #llm: BaseLLM = OpenAIChat(client=None, model_name='gpt-3.5-turbo')
-                llm: BaseLLM = OpenAI(client=None, model_name='text-davinci-003', max_tokens=1024, openai_api_key=st.session_state['key'])
+                llm: BaseLLM = OpenAIChat(client=None, model_name='gpt-3.5-turbo', openai_api_key=st.session_state['key'])
+                #llm: BaseLLM = OpenAI(client=None, model_name='text-davinci-003', max_tokens=1024, openai_api_key=st.session_state['key'])
                 st.session_state['result'] = selected_generator.generate(llm, params)
                 st.markdown(st.session_state['result'], unsafe_allow_html=False)
             except AuthenticationError:
