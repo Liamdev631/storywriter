@@ -71,6 +71,6 @@ class CharacterGenerator(Generator):
         (Neuroticism: {neuroticism}%).
         """
         prompt: str = PromptTemplate.from_template(template=template).format(**params)
-        return llm(messages=[prompt])
+        return llm(messages=[prompt]).content
 
 
