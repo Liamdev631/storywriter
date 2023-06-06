@@ -25,5 +25,5 @@ class WorldGenerator(Generator):
         chat_prompt = ChatPromptTemplate.from_messages([system_message_prompt, human_message_prompt])
         chain = LLMChain(llm=llm, prompt=chat_prompt)
         
-        return chain.run()
+        return chain.run("")
         
