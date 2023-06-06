@@ -7,7 +7,7 @@ from langchain.llms.base import BaseLLM
 from generators import Generator, CharacterGenerator, WorldGenerator, ItemGenerator, QuestGenerator
 from openai.error import AuthenticationError, RateLimitError
 import pandas as pd
-from pages import draw_landing
+from pages.landing_page import draw_landing
 
 # Checking if the session state is already defined
 if 'params' not in st.session_state:
