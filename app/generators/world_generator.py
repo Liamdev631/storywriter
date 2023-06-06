@@ -1,4 +1,9 @@
-from langchain import PromptTemplate
+from langchain import LLMChain
+from langchain.prompts import (
+    ChatPromptTemplate,
+    HumanMessagePromptTemplate,
+    SystemMessagePromptTemplate
+)
 from .generator import Generator
 import streamlit as st
 
@@ -13,7 +18,12 @@ class WorldGenerator(Generator):
     
     @staticmethod
     def generate(llm, params: dict) -> str:
-        template: str = "You are a DnD Dungeon Master. Design a {world_age} year old world for a {edition} edition campaign. In this world, magic is available to {magic_prevalance}% of the population."
-        prompt: str = PromptTemplate.from_template(template=template).format(**params)
-        return llm(messages=[prompt]).content
+        template: str = "Design a {world_age} year old world for a {edition} edition campaign. In this world, magic is available to {magic_prevalance}% of the population."
+        system_message_prompt = SystemMessagePromptTemplate.from_template("You are an expert DnD Dungeon Master who helps players flesh out their character designs. Given a rough idea of what they're looking for, you help players dreams meet reality")
+        human_message_prompt = HumanMessagePromptTemplate.from_template(template).format(**params)
+        
+        chat_prompt = ChatPromptTemplate.from_messages([system_message_prompt, human_message_prompt])
+        chain = LLMChain(llm=llm, prompt=chat_prompt)
+        
+        return chain.run()
         

@@ -35,7 +35,7 @@ if st.button('Generate'):
     with result_col:
         if st.session_state['key'] != '':
             try:
-                llm = ChatOpenAI(client=None, model_name='gpt-3.5-turbo', openai_api_key=st.session_state['key'])
+                llm = ChatOpenAI(client=None, model_name='gpt-3.5-turbo', openai_api_key=st.session_state['key'], temperature=0.9)
                 #llm: BaseLLM = OpenAI(client=None, model_name='text-davinci-003', max_tokens=1024, openai_api_key=st.session_state['key'])
                 st.session_state['result'] = selected_generator.generate(llm, params)
                 st.markdown(st.session_state['result'], unsafe_allow_html=False)

@@ -1,4 +1,9 @@
-from langchain import PromptTemplate
+from langchain import LLMChain
+from langchain.prompts import (
+    ChatPromptTemplate,
+    HumanMessagePromptTemplate,
+    SystemMessagePromptTemplate
+)
 from .generator import Generator
 import streamlit as st
 from utils import load_list, get_index
@@ -46,7 +51,7 @@ class CharacterGenerator(Generator):
     @staticmethod
     def generate(llm, params: dict) -> str:
         template: str = """
-        You are a DnD Game Master. Design a character for a {edition} edition campaign with the stats listed below. Be sure to include a deep backstory. What is their name? Who were the characters parents, are they alive? If not, how did they die. Where is their hometown? What were the two most significant events in their life? What quirks does the character have? What is their alignment and personality? Is your character religious? If so what Deity? What event in their life caused them to choose this particular god or goddess? What profession is the character? What languages do they speak? What are the characters hopes and dreams for the future? Your response MUST be formatted in Markdown.
+        Design a character for a {edition} edition campaign with the stats listed below. Be sure to include a deep backstory. What is their name? Who were the characters parents, are they alive? If not, how did they die. Where is their hometown? What were the two most significant events in their life? What quirks does the character have? What is their alignment and personality? Is your character religious? If so what Deity? What event in their life caused them to choose this particular god or goddess? What profession is the character? What languages do they speak? What are the characters hopes and dreams for the future? Your response MUST be formatted in Markdown.
         
         (Primary Race: {race_primary}).
         (Secondary Race: {race_secondary}).
@@ -70,7 +75,12 @@ class CharacterGenerator(Generator):
         (Agreeableness: {agreeableness}%).
         (Neuroticism: {neuroticism}%).
         """
-        prompt: str = PromptTemplate.from_template(template=template).format(**params)
-        return llm(messages=[prompt]).content
+        system_message_prompt = SystemMessagePromptTemplate.from_template("You are an expert DnD Dungeon Master who helps players flesh out their character designs. Given a rough idea of what they're looking for, you help players dreams meet reality")
+        human_message_prompt = HumanMessagePromptTemplate.from_template(template).format(**params)
+        
+        chat_prompt = ChatPromptTemplate.from_messages([system_message_prompt, human_message_prompt])
+        chain = LLMChain(llm=llm, prompt=chat_prompt)
+        
+        return chain.run()
 
 
