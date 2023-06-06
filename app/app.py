@@ -52,7 +52,6 @@ if st.session_state['selected_generator_name'] == 'None':
 
     # About the Interface
     st.header('Simple and Friendly Interface')
-    st.image('url-to-the-app-screenshot')
 
     # Content Generation Capabilities
     st.header('Generate Unlimited Content!')
