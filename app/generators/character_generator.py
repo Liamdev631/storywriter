@@ -1,6 +1,5 @@
 from langchain import PromptTemplate
 from .generator import Generator
-from langchain.llms.base import BaseLLM
 import streamlit as st
 from utils import load_list, get_index
 

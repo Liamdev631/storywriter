@@ -1,6 +1,5 @@
 from langchain import PromptTemplate
 from .generator import Generator
-from langchain.llms.base import BaseLLM
 import streamlit as st
 
 class WorldGenerator(Generator):
@@ -13,7 +12,7 @@ class WorldGenerator(Generator):
         return params
     
     @staticmethod
-    def generate(llm: BaseLLM, params: dict) -> str:
+    def generate(llm, params: dict) -> str:
         template: str = "You are a DnD Dungeon Master. Design a {world_age} year old world for a {edition} edition campaign. In this world, magic is available to {magic_prevalance}% of the population."
         prompt: str = PromptTemplate.from_template(template=template).format(**params)
         return llm(prompt)

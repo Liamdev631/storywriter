@@ -1,5 +1,4 @@
 from abc import abstractmethod
-from langchain.llms.base import BaseLLM
 
 class Generator():
     @staticmethod
@@ -9,5 +8,5 @@ class Generator():
     
     @staticmethod
     @abstractmethod
-    def generate(llm: BaseLLM,  params: dict) -> str:
+    def generate(llm,  params: dict) -> str:
         pass
