@@ -1,5 +1,5 @@
 .venv/
-.streamlit/
+.streamlit/config.toml
 
 *.pyc
 __pycache__/
