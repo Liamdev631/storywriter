@@ -23,7 +23,7 @@ def on_generator_changed():
 with st.sidebar:
     st.session_state['selected_generator_name'] = st.selectbox(label="Select your generator.", options=generator_options, index=generator_options.index('None'), on_change=on_generator_changed)
     
-    st.session_state['key'] = st.text_input(label='OpenAI API Key', value='', help="This key is required to access GPT from OpenAI. Ask Liam if he didn't give you one.")
+    st.session_state['key'] = st.text_input(label='OpenAI API Key', value='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', help="This key is required to access GPT from OpenAI. Ask Liam if he didn't give you one.")
 
 def get_generator_by_name(generator_name: str) -> Generator:
     match generator_name:
