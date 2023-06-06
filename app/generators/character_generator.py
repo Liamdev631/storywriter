@@ -78,9 +78,9 @@ class CharacterGenerator(Generator):
         system_message_prompt = SystemMessagePromptTemplate.from_template("You are an expert DnD Dungeon Master who helps players flesh out their character designs. Given a rough idea of what they're looking for, you help players dreams meet reality")
         human_message_prompt = HumanMessagePromptTemplate.from_template(template).format(**params)
         
-        chat_prompt = ChatPromptTemplate.from_messages([system_message_prompt])
+        chat_prompt = ChatPromptTemplate.from_messages([system_message_prompt, ])
         chain = LLMChain(llm=llm, prompt=chat_prompt)
         
-        return chain.run(human_message_prompt)
+        return chain.run([""])
 
 
