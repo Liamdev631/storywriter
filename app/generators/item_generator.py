@@ -25,7 +25,7 @@ class ItemGenerator(Generator):
             params['rarity'] = st.selectbox(label='Rarity', options=rarity_list, index=rarity_list.index('Legendary'))
             
         with col2:
-            params['is_magic'] = "magic" if st.checkbox(label='Magic?') else "non-magic"
+            params['is_magic'] = "magic" if st.checkbox(label='Magic?') else "entirely non-magic, entirely physical, completely unspecial"
         return params
     
     @staticmethod
