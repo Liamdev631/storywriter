@@ -1,5 +1,4 @@
 import streamlit as st
-st.set_page_config(layout="wide")
 import os
 from langchain.llms import OpenAI
 from langchain.chat_models import ChatOpenAI
@@ -7,6 +6,15 @@ from langchain.llms.base import BaseLLM
 from generators import Generator, CharacterGenerator, WorldGenerator, ItemGenerator, QuestGenerator
 from openai.error import AuthenticationError, RateLimitError
 import pandas as pd
+from PIL import Image
+
+# Name of the website
+favicon = Image.open("app/resources/icons/favicon.ico")
+st.set_page_config(
+        page_title="DnD - AI FantasyForge",
+        page_icon=favicon,
+        layout='wide'
+)
 
 generator_options = ('Item', 'Character', 'World', 'Quest')
 
