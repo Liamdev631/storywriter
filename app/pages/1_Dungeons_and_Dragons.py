@@ -3,7 +3,7 @@ import os
 from langchain.llms import OpenAI
 from langchain.chat_models import ChatOpenAI
 from langchain.llms.base import BaseLLM
-from generators import Generator, CharacterGenerator, WorldGenerator, ItemGenerator, QuestGenerator
+from generators import Generator, CharacterGenerator, WorldGenerator, ItemGenerator, QuestGenerator, DungeonGenerator
 from openai.error import AuthenticationError, RateLimitError
 import pandas as pd
 from PIL import Image
@@ -16,7 +16,7 @@ st.set_page_config(
         layout='wide'
 )
 
-generator_options = ('Item', 'Character', 'World', 'Quest')
+generator_options = ('Character', 'Dungeon', 'Item', 'Quest', 'World')
 
 def on_generator_changed():
     st.session_state['params'] = {}
@@ -36,6 +36,8 @@ def get_generator_by_name(generator_name: str) -> Generator:
             return ItemGenerator()
         case "Quest":
             return QuestGenerator()
+        case 'Dungeon':
+            return DungeonGenerator()
         case _:
             return WorldGenerator() # Default
 
