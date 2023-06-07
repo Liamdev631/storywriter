@@ -9,14 +9,14 @@ from openai.error import AuthenticationError, RateLimitError
 import pandas as pd
 
 # Title of the page
-st.title('Welcome to StoryWriter')
+st.title('Welcome to AI FantasyForge')
 
 # Subtitle or tagline
 st.subheader('Unleash your Imagination, Power your Storytelling')
 
 # Introduction about the app
 st.write("""
-**StoryWriter** brings the magic of artificial intelligence to your fingertips, making your stories, games, and worlds rich, immersive, and uniquely yours. This is your one-stop-shop for generating custom characters, thrilling quests, unique magic items, and so much more.
+**AI FantasyForge** brings the magic of artificial intelligence to your fingertips, making your stories, games, and worlds rich, immersive, and uniquely yours. This is your one-stop-shop for generating custom characters, thrilling quests, unique magic items, and so much more.
 """)
 
 # About the Interface
@@ -32,9 +32,9 @@ st.write("""
 """)
 
 # Invitation to join
-st.header('Try StoryWriter Today!')
+st.header('Try AI FantasyForge Today!')
 st.write("""
-No matter if you're a dungeon master, a writer, or just someone who loves creating fantasy worlds - **StoryWriter** is the tool for you!
+No matter if you're a dungeon master, a writer, or just someone who loves creating fantasy worlds - **AI FantasyForge** is the tool for you!
 
 Join us in this revolution of AI-driven creativity and take your storytelling to the next level.
 """)
