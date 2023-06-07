@@ -10,6 +10,8 @@ from utils import load_list, get_index
 
 class CharacterGenerator(Generator):
     def load_gui(self):
+        st.title('DnD Character Generator')
+        
         params = {}
         
         races_list:         list[str] = load_list("app/resources/dnd/races.csv")
@@ -18,7 +20,6 @@ class CharacterGenerator(Generator):
         background_list:    list[str] = load_list("app/resources/dnd/backgrounds.csv")
         editions_list:      list[str] = load_list("app/resources/dnd/editions.csv")
 
-        
         col1, col2, col3, col4 = st.columns(4)
         
         with col1:

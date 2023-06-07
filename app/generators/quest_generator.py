@@ -11,6 +11,8 @@ from utils import load_list, get_index
 class QuestGenerator(Generator):
     @staticmethod
     def load_gui():
+        st.title('DnD Quest Generator')
+        
         editions_list: list[str] = load_list("app/resources/dnd/editions.csv")
         
         params = {}

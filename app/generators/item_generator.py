@@ -11,6 +11,8 @@ from utils import load_list
 class ItemGenerator(Generator):
     @staticmethod
     def load_gui():
+        st.title('DnD Magical Item Generator')
+        
         rarity_list: list[str] = load_list("app/resources/dnd/rarities.csv")
         item_types_list: list[str] = load_list("app/resources/dnd/item_types.csv")
         

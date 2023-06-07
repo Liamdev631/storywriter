@@ -11,6 +11,8 @@ from utils import load_list
 class WorldGenerator(Generator):
     @staticmethod
     def load_gui():
+        st.title('DnD World Generator')
+        
         editions_list: list[str] = ['5th', '4th', '3rd', '2nd', '1st']
         worlds_list: list[str] = load_list("app/resources/dnd/worlds.csv")
         
