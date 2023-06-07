@@ -13,13 +13,14 @@ class QuestGenerator(Generator):
     def load_gui():
         st.title('DnD Quest Generator')
         
-        editions_list: list[str] = load_list("app/resources/dnd/editions.csv")
+        difficulty_options = ["Easy", "Normal", "Hard", "Extreme", "Impossible"]
         
         params = {}
         
-        params['edition'] = st.selectbox('Edition', options=editions_list, key='edition', index=get_index(editions_list, st.session_state['params'].get('edition', None)))
-        
-        
+        params['avg_party_level'] = st.number_input(label='Average Party Level', value=1, min_value=1)
+        params['party_size'] = st.number_input(label='Party Size', value=2, min_value=1)
+        params['difficulty'] = st.selectbox(label='Difficulty', options=difficulty_options, index=difficulty_options.index('Normal'))
+                
         return params
     
     @staticmethod
@@ -27,7 +28,7 @@ class QuestGenerator(Generator):
         system_message_template: str = "You are an expert DnD Dungeon Master who designs unique and exotic quests for your players based on their specifications."
         system_message_prompt = SystemMessagePromptTemplate.from_template(system_message_template)
         
-        human_message_template: str = "Please generate a quest for {edition} edition DnD that is unique and fun for DnD players."
+        human_message_template: str = "Please generate a(n) {difficulty} DnD quest for {party_size} players that is unique and fun. The average level of players in the party is {avg_party_level}"
         human_message_prompt = HumanMessagePromptTemplate.from_template(human_message_template)
         
         chat_prompt = ChatPromptTemplate.from_messages([system_message_prompt, human_message_prompt])

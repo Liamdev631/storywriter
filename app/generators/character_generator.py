@@ -23,7 +23,6 @@ class CharacterGenerator(Generator):
         col1, col2, col3, col4 = st.columns(4)
         
         with col1:
-            params['edition'] = st.selectbox('Edition', options=editions_list, key='edition', index=get_index(editions_list, st.session_state['params'].get('edition', None)))
             params['age'] = st.number_input('Age', value=st.session_state['params'].get('age', 20), min_value=1)
             
         with col2:
@@ -57,7 +56,7 @@ class CharacterGenerator(Generator):
         system_message_prompt = SystemMessagePromptTemplate.from_template(system_message_template)
         
         human_message_template: str = """
-        Design a character for a {edition} edition campaign with the stats listed below. Be sure to include a deep backstory. What is their name? Who were the characters parents? Where is their hometown? What were the two most significant events in their life? What quirks does the character have? What is their alignment and personality? Is your character religious? If so what Deity? What event in their life caused them to choose this particular god or goddess? What profession is the character? What languages do they speak? What are the characters hopes and dreams for the future? Your response MUST be formatted in Markdown.
+        Design a character for a 5th edition DnD campaign with the stats listed below. Be sure to include a deep backstory. What is their name? Who were the characters parents? Where is their hometown? What were the two most significant events in their life? What quirks does the character have? What is their alignment and personality? Is your character religious? If so what Deity? What event in their life caused them to choose this particular god or goddess? What profession is the character? What languages do they speak? What are the characters hopes and dreams for the future? Your response MUST be formatted in Markdown.
         
         (Primary Race: {race_primary}).
         (Secondary Race: {race_secondary}).
