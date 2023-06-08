@@ -29,15 +29,15 @@ class ItemGenerator(Generator):
         with col1:
             params['item_type'] = st.selectbox(label='Item Type', options=item_types_list, index=item_types_list.index('Ring'))
             params['rarity'] = st.selectbox(label='Rarity', options=rarity_list, index=rarity_list.index('Legendary'))
-            params['alignment'] = st.selectbox(label='Alignment', options=alignment_list, index=alignment_list.index('None'))
-            params['origin_race'] = st.selectbox(label='Origin', options=races_list, index=races_list.index('None'))
-            params['target_class'] = st.selectbox(label='Target Class', options=class_list, index=class_list.index('None'))
+            params['alignment'] = st.selectbox(label='Alignment', options=alignment_list, index=alignment_list.index(''))
+            params['origin_race'] = st.selectbox(label='Origin', options=races_list, index=races_list.index(''))
+            params['target_class'] = st.selectbox(label='Target Class', options=class_list, index=class_list.index(''))
             
         with col2:
-            params['power1'] = st.selectbox(label='Power 1', options=powers_list, index=powers_list.index('None'))
-            params['power2'] = st.selectbox(label='Power 2', options=powers_list, index=powers_list.index('None'))
-            params['affinity1'] = st.selectbox(label='Affinity 1', options=affinities_list, index=affinities_list.index('None'))
-            params['affinity2'] = st.selectbox(label='Affinity 2', options=affinities_list, index=affinities_list.index('None'))
+            params['power1'] = st.selectbox(label='Power 1', options=powers_list, index=powers_list.index(''))
+            params['power2'] = st.selectbox(label='Power 2', options=powers_list, index=powers_list.index(''))
+            params['affinity1'] = st.selectbox(label='Affinity 1', options=affinities_list, index=affinities_list.index(''))
+            params['affinity2'] = st.selectbox(label='Affinity 2', options=affinities_list, index=affinities_list.index(''))
             params['is_magic'] = "magic" if st.checkbox(label='Magic?') else "entirely non-magic, entirely physical"
             params['has_drawbacks'] = "magic" if st.checkbox(label='Drawbacks?') else "entirely non-magic, entirely physical"
         return params
@@ -48,19 +48,19 @@ class ItemGenerator(Generator):
         system_message_prompt = SystemMessagePromptTemplate.from_template(system_message_template)
         
         human_message_template: str = "Please generate a {is_magic} {item_type} with {rarity} rarity that is unique and fun for DnD players."
-        if params['power1'] != 'None':
+        if params['power1'] != '':
             human_message_template += " This item has {power1} power."
-        if params['power2'] != 'None':
+        if params['power2'] != '':
             human_message_template += " This item has {power2} power."
-        if params['affinity1'] != 'None':
+        if params['affinity1'] != '':
             human_message_template += " This item has {affinity1} affinity."
-        if params['affinity2'] != 'None':
+        if params['affinity2'] != '':
             human_message_template += " This item has {affinity2} affinity."
-        if params['target_class'] != 'None':
+        if params['target_class'] != '':
             human_message_template += " This item is designed to be useful to players of the {target_class} class."
-        if params['origin_race'] != 'None':
+        if params['origin_race'] != '':
             human_message_template += " This item was created by the {origin_race} race."
-        if params['alignment'] != 'None':
+        if params['alignment'] != '':
             human_message_template += " This item is must effective when used by one with {alignment} alignment."
         human_message_prompt = HumanMessagePromptTemplate.from_template(human_message_template)
         

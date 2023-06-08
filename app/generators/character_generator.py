@@ -27,11 +27,11 @@ class CharacterGenerator(Generator):
             
         with col2:
             params['race_primary'] = st.selectbox('Primary Race', races_list, key='race_primary', index=get_index(races_list, st.session_state['params'].get('race_primary', 'Human')))
-            params['race_secondary'] = st.selectbox('Secondary Race', races_list, key='race_secondary', index=get_index(races_list, st.session_state['params'].get('race_secondary', 'None')))
-            params['alignment'] = st.selectbox('Alignment', alignment_list, key='alignment', index=get_index(alignment_list, st.session_state['params'].get('alignment', None)))
+            params['race_secondary'] = st.selectbox('Secondary Race', races_list, key='race_secondary', index=get_index(races_list, st.session_state['params'].get('race_secondary', '')))
+            params['alignment'] = st.selectbox('Alignment', alignment_list, key='alignment', index=get_index(alignment_list, st.session_state['params'].get('alignment', )))
             params['primary_class'] = st.selectbox('Primary Class', class_list, key='primary_class', index=get_index(class_list, st.session_state['params'].get('primary_class', 'Bard')))
-            params['secondary_class'] = st.selectbox('Secondary Class', class_list, key='secondary_class', index=get_index(class_list, st.session_state['params'].get('secondary_class', 'None')))
-            params['background'] = st.selectbox('Background', background_list, key='background', index=get_index(background_list, st.session_state['params'].get('background', None)))
+            params['secondary_class'] = st.selectbox('Secondary Class', class_list, key='secondary_class', index=get_index(class_list, st.session_state['params'].get('secondary_class', '')))
+            params['background'] = st.selectbox('Background', background_list, key='background', index=get_index(background_list, st.session_state['params'].get('background', )))
             
         with col3:
             params['dexterity'] = st.slider('Dexterity', value=st.session_state['params'].get('dexterity', 5), min_value=1, max_value=20)
