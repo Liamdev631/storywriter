@@ -58,27 +58,28 @@ class CharacterGenerator(Generator):
         human_message_template: str = """
         Design a character for a 5th edition DnD campaign with the stats listed below. Be sure to include a deep backstory. What is their name? Who were the characters parents? Where is their hometown? What were the two most significant events in their life? What quirks does the character have? What is their alignment and personality? Is your character religious? If so what Deity? What event in their life caused them to choose this particular god or goddess? What profession is the character? What languages do they speak? What are the characters hopes and dreams for the future? Your response MUST be formatted in Markdown.
         
-        (Primary Race: {race_primary}).
-        (Secondary Race: {race_secondary}).
-        (Age: {age} years).
-        (Alignment: {alignment}).
-        (Primary Class: {primary_class}).
-        (Secondary Class: {secondary_class}).
-        (Background: {background}).
+        Primary Race: {race_primary}.
+        Secondary Race: {race_secondary}.
+        Age: {age} years).
+        Alignment: {alignment}.
+        Primary Class: {primary_class}.
+        Secondary Class: {secondary_class}.
+        Background: {background}.
         
-        (Dexterity: {dexterity}).
-        (Strength: {strength}).
-        (Constitution: {constitution}).
-        (Intelligence: {intelligence}).
-        (Charistma: {charisma}).
-        (Wisdom: {wisdom}).
+        Stats:
+        Dexterity: {dexterity}.
+        Strength: {strength}.
+        Constitution: {constitution}.
+        Intelligence: {intelligence}.
+        Charistma: {charisma}.
+        Wisdom: {wisdom}.
         
-        Personality traits: 
-        (Openness: {openness}%).
-        (Conscientiousness: {conscientiousness}%).
-        (Extraversion: {extraversion}%).
-        (Agreeableness: {agreeableness}%).
-        (Neuroticism: {neuroticism}%).
+        Personality traits:
+        Openness: {openness}%.
+        Conscientiousness: {conscientiousness}%.
+        Extraversion: {extraversion}%.
+        Agreeableness: {agreeableness}%.
+        Neuroticism: {neuroticism}%.
         """
         human_message_prompt = HumanMessagePromptTemplate.from_template(human_message_template)
         

@@ -1,11 +1,8 @@
 import streamlit as st
 import os
-from langchain.llms import OpenAI
 from langchain.chat_models import ChatOpenAI
-from langchain.llms.base import BaseLLM
 from generators import Generator, CharacterGenerator, WorldGenerator, ItemGenerator, QuestGenerator, DungeonGenerator
 from openai.error import AuthenticationError, RateLimitError
-import pandas as pd
 from PIL import Image
 
 # Name of the website
@@ -16,17 +13,20 @@ st.set_page_config(
         layout='wide'
 )
 
+subpage_options = ('About', 'Generators')
 generator_options = ('Character', 'Dungeon', 'Item', 'Quest', 'World')
 
 def on_generator_changed():
     st.session_state['params'] = {}
 
 with st.sidebar:
-    st.session_state['selected_generator_name'] = st.selectbox(label="Select your generator.", options=generator_options, index=generator_options.index('Item'), on_change=on_generator_changed)
+    st.markdown('Select a generator below to get started!')
     
+    st.session_state['selected_generator_name'] = st.selectbox(label="Generator", options=generator_options, index=generator_options.index('Item'), on_change=on_generator_changed)
     st.session_state['key'] = st.text_input(label='OpenAI API Key', value='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', help="This key is required to access GPT from OpenAI. Ask Liam if he didn't give you one.")
 
-def get_generator_by_name(generator_name: str) -> Generator:
+
+def get_generator_by_name(generator_name: str) -> Generator | None:
     match generator_name:
         case "World":
             return WorldGenerator()
@@ -39,12 +39,15 @@ def get_generator_by_name(generator_name: str) -> Generator:
         case 'Dungeon':
             return DungeonGenerator()
         case _:
-            return WorldGenerator() # Default
+            return None # Default
 
 # Retrieve the generator instance
-selected_generator: Generator = get_generator_by_name(st.session_state['selected_generator_name'])
+selected_generator: (Generator | None) = get_generator_by_name(st.session_state['selected_generator_name'])
 
 options_col, result_col = st.columns(2)
+
+if selected_generator == None:
+    st.stop()
 
 with options_col:
     # Load the GUI and store the parameters

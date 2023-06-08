@@ -31,9 +31,6 @@ with col1:
     **AI FantasyForge** brings the magic of artificial intelligence to your fingertips, making your stories, games, and worlds rich, immersive, and uniquely yours. This is your one-stop-shop for generating custom characters, thrilling quests, unique magic items, and so much more.
     """)
 
-    # About the Interface
-    st.header('Simple and Friendly Interface')
-
     # Content Generation Capabilities
     st.header('Generate Unlimited Content!')
     st.write("""
@@ -46,10 +43,11 @@ with col1:
     # Invitation to join
     st.header('Try AI FantasyForge Today!')
     st.write("""
-    No matter if you're a dungeon master, a writer, or just someone who loves creating fantasy worlds - **AI FantasyForge** is the tool for you!
-
-    Join us in this revolution of AI-driven creativity and take your storytelling to the next level.
+    No matter if you're a dungeon master, a writer, or just someone who loves creating fantasy worlds - **AI FantasyForge** is the tool for you! Join us in this revolution of AI-driven creativity and take your storytelling to the next level.
     """)
+    
+    # Instructions
+    st.write("To get started, select the toolset you want from the side panel and choose your generator!")
 with col2:
     with open('app/users/credentials.yaml') as file:
         config = yaml.load(file, Loader=SafeLoader)
