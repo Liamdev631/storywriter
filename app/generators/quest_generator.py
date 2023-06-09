@@ -24,15 +24,8 @@ class QuestGenerator(Generator):
         return params
     
     @staticmethod
-    def generate(llm, params: dict) -> str:
-        system_message_template: str = "You are an expert DnD Dungeon Master who designs unique and exotic quests for your players based on their specifications."
-        system_message_prompt = SystemMessagePromptTemplate.from_template(system_message_template)
+    def generate(params: dict[str,str]) -> str:
+        prompt: str = "You are an expert DnD Dungeon Master who designs unique and exotic quests for your players based on their specifications. Please generate a(n) {difficulty} DnD quest for {party_size} players that is unique and fun. The average level of players in the party is {avg_party_level}"
         
-        human_message_template: str = "Please generate a(n) {difficulty} DnD quest for {party_size} players that is unique and fun. The average level of players in the party is {avg_party_level}"
-        human_message_prompt = HumanMessagePromptTemplate.from_template(human_message_template)
-        
-        chat_prompt = ChatPromptTemplate.from_messages([system_message_prompt, human_message_prompt])
-        chain = LLMChain(llm=llm, prompt=chat_prompt)
-        
-        return chain.run(**params)
+        return prompt.format(**params)
         

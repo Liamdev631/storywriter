@@ -8,5 +8,5 @@ class Generator():
     
     @staticmethod
     @abstractmethod
-    def generate(llm,  params: dict) -> str:
+    def generate(params: dict[str,str]) -> str:
         pass

@@ -38,34 +38,31 @@ class ItemGenerator(Generator):
             params['power2'] = st.selectbox(label='Power 2', options=powers_list, index=powers_list.index(''))
             params['affinity1'] = st.selectbox(label='Affinity 1', options=affinities_list, index=affinities_list.index(''))
             params['affinity2'] = st.selectbox(label='Affinity 2', options=affinities_list, index=affinities_list.index(''))
-            params['is_magic'] = "magic" if st.checkbox(label='Magic?') else "entirely non-magic, entirely physical"
+            params['is_magic'] = "magic" if st.checkbox(label='Magic?', value=True) else "entirely non-magic, entirely physical"
             params['has_drawbacks'] = "magic" if st.checkbox(label='Drawbacks?') else "entirely non-magic, entirely physical"
         return params
     
     @staticmethod
-    def generate(llm, params: dict) -> str:
-        system_message_template: str = "You are an expert DnD Dungeon Master who designs unique and mysterious items for your players based on their specifications."
-        system_message_prompt = SystemMessagePromptTemplate.from_template(system_message_template)
-        
-        human_message_template: str = "Please generate a {is_magic} {item_type} with {rarity} rarity that is unique and fun for DnD players."
+    def generate(params: dict[str,str]) -> str:
+        prompt: str = "You are an expert DnD Dungeon Master who designs unique items for your players based on their specifications. Please generate a {item_type} with {rarity} rarity that is unique and fun for DnD players."
+        if params['is_magic']:
+            prompt += " The item has magical properties."
+        else:
+            prompt += " The item is entirely non-magical and has no special abilities. It's strength comes from its physical properties."
         if params['power1'] != '':
-            human_message_template += " This item has {power1} power."
+            prompt += " This item has {power1} power."
         if params['power2'] != '':
-            human_message_template += " This item has {power2} power."
+            prompt += " This item has {power2} power."
         if params['affinity1'] != '':
-            human_message_template += " This item has {affinity1} affinity."
+            prompt += " This item has {affinity1} affinity."
         if params['affinity2'] != '':
-            human_message_template += " This item has {affinity2} affinity."
+            prompt += " This item has {affinity2} affinity."
         if params['target_class'] != '':
-            human_message_template += " This item is designed to be useful to players of the {target_class} class."
+            prompt += " This item is designed to be useful to players of the {target_class} class."
         if params['origin_race'] != '':
-            human_message_template += " This item was created by the {origin_race} race."
+            prompt += " This item was created by the {origin_race} race."
         if params['alignment'] != '':
-            human_message_template += " This item is must effective when used by one with {alignment} alignment."
-        human_message_prompt = HumanMessagePromptTemplate.from_template(human_message_template)
-        
-        chat_prompt = ChatPromptTemplate.from_messages([system_message_prompt, human_message_prompt])
-        chain = LLMChain(llm=llm, prompt=chat_prompt)
-        
-        return chain.run(**params)
+            prompt += " This item is must effective when used by one with {alignment} alignment."
+            
+        return prompt.format(**params)
         

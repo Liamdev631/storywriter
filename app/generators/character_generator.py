@@ -51,12 +51,10 @@ class CharacterGenerator(Generator):
         return params
     
     @staticmethod
-    def generate(llm, params: dict) -> str:
-        system_message_template = "You are an expert DnD Dungeon Master who helps players flesh out their character designs. Given a rough idea of what they're looking for, you help players dreams meet reality"
-        system_message_prompt = SystemMessagePromptTemplate.from_template(system_message_template)
-        
-        human_message_template: str = """
-        Design a character for a 5th edition DnD campaign with the stats listed below. Be sure to include a deep backstory. What is their name? Who were the characters parents? Where is their hometown? What were the two most significant events in their life? What quirks does the character have? What is their alignment and personality? Is your character religious? If so what Deity? What event in their life caused them to choose this particular god or goddess? What profession is the character? What languages do they speak? What are the characters hopes and dreams for the future? Your response MUST be formatted in Markdown.
+    def generate(params: dict[str,str]) -> str:
+        prompt: str = """
+        You are an expert DnD Dungeon Master who helps players flesh out their character designs. Given a rough idea of what they're looking for, you help players dreams meet reality.
+        Design a character for a 5th edition DnD campaign with the stats listed below. Be sure to include a deep backstory. What is their name? Who were the characters parents? Where is their hometown? What were the two most significant events in their life? What quirks does the character have? What is their alignment and personality? Is your character religious? If so what Deity? What event in their life caused them to choose this particular god or goddess? What profession is the character? What languages do they speak? What are the characters hopes and dreams for the future?
         
         Primary Race: {race_primary}.
         Secondary Race: {race_secondary}.
@@ -81,11 +79,6 @@ class CharacterGenerator(Generator):
         Agreeableness: {agreeableness}%.
         Neuroticism: {neuroticism}%.
         """
-        human_message_prompt = HumanMessagePromptTemplate.from_template(human_message_template)
         
-        chat_prompt = ChatPromptTemplate.from_messages([system_message_prompt, human_message_prompt])
-        chain = LLMChain(llm=llm, prompt=chat_prompt)
-        
-        return chain.run(**params)
-
+        return prompt.format(**params)
 

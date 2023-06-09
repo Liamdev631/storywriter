@@ -17,22 +17,19 @@ class DungeonGenerator(Generator):
         params = {}
         
         dungeon_types_list: list[str] = load_list("app/resources/dnd/dungeons.csv")
+        difficulty_options = ["Easy", "Normal", "Hard", "Extreme", "Impossible"]
         
         params['dungeon_type'] = st.selectbox(label='Dungeon Type', options=dungeon_types_list)
         params['num_encounters'] = st.number_input(label='Number of Encounters', min_value=1, value=1)
+        params['avg_party_level'] = st.number_input(label='Average Party Level', value=1, min_value=1)
+        params['party_size'] = st.number_input(label='Party Size', value=2, min_value=1)
+        params['difficulty'] = st.selectbox(label='Difficulty', options=difficulty_options, index=difficulty_options.index('Normal'))
         
         return params
     
     @staticmethod
-    def generate(llm, params: dict) -> str:
-        system_message_template: str = "You are an expert DnD Dungeon Master who designs unique and mysterious dungeons for your players based on specifications."
-        system_message_prompt = SystemMessagePromptTemplate.from_template(system_message_template)
+    def generate(params: dict[str,str]) -> str:
+        prompt: str = "You are an expert DnD Dungeon Master. Design a unique and mysterious {dungeon_type} dungeon for {party_size} players with an average level of {avg_party_level} with {difficulty} difficulty. The dungeon must include {num_encounters} encounters."
         
-        human_message_template: str = "Please generate a unique and fun {dungeon_type} dungeon for a party of DnD players. The dungeon must include {num_encounters} encounters."
-        human_message_prompt = HumanMessagePromptTemplate.from_template(human_message_template)
-        
-        chat_prompt = ChatPromptTemplate.from_messages([system_message_prompt, human_message_prompt])
-        chain = LLMChain(llm=llm, prompt=chat_prompt)
-        
-        return chain.run(**params)
+        return prompt.format(**params)
         
