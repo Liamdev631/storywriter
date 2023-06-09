@@ -6,7 +6,7 @@ from langchain.prompts import (
 )
 from .generator import Generator
 import streamlit as st
-from utils import load_list, get_index
+from utils import load_list
 
 class CharacterGenerator(Generator):
     def load_gui(self):
@@ -26,12 +26,12 @@ class CharacterGenerator(Generator):
             params['age'] = st.number_input('Age', value=st.session_state['params'].get('age', 20), min_value=1)
             
         with col2:
-            params['race_primary'] = st.selectbox('Primary Race', races_list, key='race_primary', index=get_index(races_list, st.session_state['params'].get('race_primary', 'Human')))
-            params['race_secondary'] = st.selectbox('Secondary Race', races_list, key='race_secondary', index=get_index(races_list, st.session_state['params'].get('race_secondary', '')))
-            params['alignment'] = st.selectbox('Alignment', alignment_list, key='alignment', index=get_index(alignment_list, st.session_state['params'].get('alignment', )))
-            params['primary_class'] = st.selectbox('Primary Class', class_list, key='primary_class', index=get_index(class_list, st.session_state['params'].get('primary_class', 'Bard')))
-            params['secondary_class'] = st.selectbox('Secondary Class', class_list, key='secondary_class', index=get_index(class_list, st.session_state['params'].get('secondary_class', '')))
-            params['background'] = st.selectbox('Background', background_list, key='background', index=get_index(background_list, st.session_state['params'].get('background', )))
+            params['race_primary'] = st.selectbox('Primary Race', races_list, key='race_primary', index=races_list.index('Human'))
+            params['race_secondary'] = st.selectbox('Secondary Race', races_list, key='race_secondary', index=races_list.index(''))
+            params['alignment'] = st.selectbox('Alignment', alignment_list, key='alignment', index=alignment_list.index(''))
+            params['primary_class'] = st.selectbox('Primary Class', class_list, key='primary_class', index=class_list.index('Bard'))
+            params['secondary_class'] = st.selectbox('Secondary Class', class_list, key='secondary_class', index=class_list.index(''))
+            params['background'] = st.selectbox('Background', background_list, key='background', index=background_list.index(''))
             
         with col3:
             params['dexterity'] = st.slider('Dexterity', value=st.session_state['params'].get('dexterity', 5), min_value=1, max_value=20)

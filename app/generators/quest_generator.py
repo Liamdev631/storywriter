@@ -6,7 +6,7 @@ from langchain.prompts import (
 )
 from .generator import Generator
 import streamlit as st
-from utils import load_list, get_index
+from utils import load_list
 
 class QuestGenerator(Generator):
     @staticmethod

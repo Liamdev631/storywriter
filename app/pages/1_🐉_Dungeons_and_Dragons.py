@@ -27,7 +27,7 @@ with st.sidebar:
     st.session_state['key'] = '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'
 
 
-def get_generator_by_name(generator_name: str) -> Generator | None:
+def get_generator_by_name(generator_name: str) -> Generator:
     match generator_name:
         case "World":
             return WorldGenerator()
@@ -40,12 +40,13 @@ def get_generator_by_name(generator_name: str) -> Generator | None:
         case 'Dungeon':
             return DungeonGenerator()
         case _:
-            return  # Default
+            return WorldGenerator()
+            
 
 # Retrieve the generator instance
-selected_generator: (Generator | None) = get_generator_by_name(st.session_state['selected_generator_name'])
+selected_generator: Generator = get_generator_by_name(st.session_state['selected_generator_name'])
 
-options_col, result_col = st.columns(2)
+options_col, result_col = st.columns(2) 
 
 if selected_generator == None:
     st.stop()
