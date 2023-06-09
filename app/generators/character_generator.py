@@ -31,7 +31,7 @@ class CharacterGenerator(Generator):
             params['alignment'] = st.selectbox('Alignment', alignment_list, key='alignment', index=alignment_list.index(''))
             params['primary_class'] = st.selectbox('Primary Class', class_list, key='primary_class', index=class_list.index('Bard'))
             params['secondary_class'] = st.selectbox('Secondary Class', class_list, key='secondary_class', index=class_list.index(''))
-            params['background'] = st.selectbox('Background', background_list, key='background', index=background_list.index(''))
+            params['background'] = st.selectbox('Background', background_list, key='background', index=background_list.index('Acolyte'))
             
         with col3:
             params['dexterity'] = st.slider('Dexterity', value=st.session_state['params'].get('dexterity', 5), min_value=1, max_value=20)
