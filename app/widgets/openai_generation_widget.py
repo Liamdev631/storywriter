@@ -8,6 +8,7 @@ class OpenAIGenerationWidget:
     def __init__(self, generator: Generator):
         openai_api_key: str = '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'
         if st.button('Generate', type='primary'):
+            whole_response: str = ""
             try:
                 combined = []
                 result_box = st.empty()
@@ -17,7 +18,8 @@ class OpenAIGenerationWidget:
                     response_text = response_chunk['choices'][0]['delta'] # type: ignore
                     answer = response_text.get('content', '')
                     combined.append(answer) # type: ignore
-                    result_box.markdown(''.join(combined), unsafe_allow_html=False)
+                    whole_response = ''.join(combined)
+                    result_box.markdown(whole_response, unsafe_allow_html=False)
             except AuthenticationError as e:
                 if e.code == 401:
                     st.warning("Invalid Authentication. Ensure the correct API key and requesting organization are being used.")
@@ -31,3 +33,4 @@ class OpenAIGenerationWidget:
                     st.warning("The server had an error while processing your request. Retry your request after a brief wait and contact us if the issue persists. Check the status page.")
             except RateLimitError:
                 st.warning('Rate limit reached. Just wait a minute and try again, because of the key everyone is sharing.')
+            st.download_button(label='Save', data=whole_response)
