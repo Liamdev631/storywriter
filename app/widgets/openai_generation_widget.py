@@ -6,13 +6,14 @@ from openai.error import AuthenticationError, RateLimitError
 
 class OpenAIGenerationWidget:
     def __init__(self, generator: Generator):
+        openai_api_key: str = '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'
         if st.button('Generate', type='primary'):
             wait_message = st.markdown("----Generating! Please wait 15-30 seconds.----")
             try:
                 combined = []
                 result_box = st.empty()
                 prompt = generator.generate(st.session_state['params'])
-                result = openai.ChatCompletion.create(model='gpt-3.5-turbo', temperature=1.0, stream=True, messages=[{'role': 'user', 'content': prompt}])
+                result = openai.ChatCompletion.create(model='gpt-3.5-turbo', temperature=1.0, stream=True, messages=[{'role': 'user', 'content': prompt}], api_key=openai_api_key)
                 for response_chunk in result:
                     response_text = response_chunk['choices'][0]['delta'] # type: ignore
                     answer = response_text.get('content', '')

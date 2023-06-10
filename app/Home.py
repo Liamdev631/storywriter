@@ -36,26 +36,13 @@ with col1:
     No matter if you're a dungeon master, a writer, or just someone who loves creating fantasy worlds - **AI FantasyForge** is the tool for you! Join us in this revolution of AI-driven creativity and take your storytelling to the next level.
     """)
     
+    st.write("Consider supporting server costs and GPT access by donating to our Patreon!")
+    link = '<a href="https://www.patreon.com/bePatron?u=94804852" data-patreon-widget-type="become-patron-button">Become a Patron!</a><script async src="https://c6.patreon.com/becomePatronButton.bundle.js"></script>'
+    st.markdown(link, unsafe_allow_html=True)
+    
     # Instructions
     st.write("To get started, select the toolset you want from the side panel and choose your generator!")
-# with col2:
-#     with open('app/users/credentials.yaml') as file:
-#         config = yaml.load(file, Loader=SafeLoader)
-        
-#         authenticator = stauth.Authenticate(
-#             config['credentials'],
-#             config['cookie']['name'],
-#             config['cookie']['key'],
-#             config['cookie']['expiry_days'],
-#             config['preauthorized']
-#         )
-        
-#         name, authentication_status, username = authenticator.login('Login', 'main')
-#         if st.session_state["authentication_status"]:
-#             authenticator.logout('Logout', 'main')
-#             st.write(f'Welcome *{st.session_state["name"]}*')
-#             st.title('Some content')
-#         elif st.session_state["authentication_status"] == False:
-#             st.error('Username/password is incorrect')
-#         elif st.session_state["authentication_status"] == None:
-#             st.warning('Please enter your username and password')
+    
+    
+with col2:
+    pass
