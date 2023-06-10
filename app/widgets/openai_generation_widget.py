@@ -8,7 +8,6 @@ class OpenAIGenerationWidget:
     def __init__(self, generator: Generator):
         openai_api_key: str = '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'
         if st.button('Generate', type='primary'):
-            wait_message = st.markdown("----Generating! Please wait 15-30 seconds.----")
             try:
                 combined = []
                 result_box = st.empty()
@@ -19,7 +18,6 @@ class OpenAIGenerationWidget:
                     answer = response_text.get('content', '')
                     combined.append(answer) # type: ignore
                     result_box.markdown(''.join(combined), unsafe_allow_html=False)
-                wait_message.empty()
             except AuthenticationError as e:
                 if e.code == 401:
                     st.warning("Invalid Authentication. Ensure the correct API key and requesting organization are being used.")
