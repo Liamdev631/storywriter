@@ -18,7 +18,7 @@ class DungeonGenerator(Generator):
         params['party_size'] = st.number_input(label='Party Size', value=2, min_value=1)
         params['difficulty'] = st.selectbox(label='Difficulty', options=difficulty_options, index=difficulty_options.index('Normal'))
         
-        return params
+        st.session_state['params'] = params
     
     @staticmethod
     def generate(params: dict[str,str]) -> str:

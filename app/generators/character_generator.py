@@ -41,8 +41,8 @@ class CharacterGenerator(Generator):
             params['extraversion'] = st.slider('Extraversion', value=st.session_state['params'].get('extraversion', 50), min_value=0, max_value=100, step=5)
             params['agreeableness'] = st.slider('Agreeableness', value=st.session_state['params'].get('agreeableness', 50), min_value=0, max_value=100, step=5)
             params['neuroticism'] = st.slider('Neuroticism', value=st.session_state['params'].get('neuroticism', 50), min_value=0, max_value=100, step=5)
-            
-        return params
+
+        st.session_state['params'] = params
     
     @staticmethod
     def generate(params: dict[str,str]) -> str:

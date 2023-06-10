@@ -20,7 +20,8 @@ class WorldGenerator(Generator):
         with col2:
             params['magic_prevalance'] = st.slider('Magic Prevalance', value=10, min_value=1, max_value=100, step=1)
             params['world_age'] = st.slider('World Age (years)', value=5000, min_value=0, max_value=10000, step=100)
-        return params
+        
+        st.session_state['params'] = params
     
     @staticmethod
     def generate(params: dict[str,str]) -> str:

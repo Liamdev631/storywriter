@@ -33,7 +33,8 @@ class ItemGenerator(Generator):
             params['affinity2'] = st.selectbox(label='Affinity 2', options=affinities_list, index=affinities_list.index(''))
             params['is_magic'] = "magic" if st.checkbox(label='Magic?', value=True) else "entirely non-magic, entirely physical"
             params['has_drawbacks'] = "magic" if st.checkbox(label='Drawbacks?') else "entirely non-magic, entirely physical"
-        return params
+        
+        st.session_state['params'] = params
     
     @staticmethod
     def generate(params: dict[str,str]) -> str:
