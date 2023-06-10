@@ -1,9 +1,7 @@
 import streamlit as st
-import os
-os.environ["OPENAI_API_KEY"] = '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'
 from generators import Generator, CharacterGenerator, WorldGenerator, ItemGenerator, QuestGenerator, DungeonGenerator
 from PIL import Image
-from widgets import OpenAIGenerationWidget
+from widgets import OpenAIGenerationWidget, Dalle2GenerationWidget
 
 # Name of the website
 favicon = Image.open("app/resources/icons/favicon.ico")
@@ -51,4 +49,6 @@ with options_col:
     selected_generator.load_gui()
 
 with result_col:
-    generation_widget = OpenAIGenerationWidget(selected_generator)
+    if st.button('Generate', type='primary'):
+        generation_widget = OpenAIGenerationWidget(selected_generator)
+        #image_widget = Dalle2GenerationWidget()

@@ -31,8 +31,8 @@ class ItemGenerator(Generator):
             params['power2'] = st.selectbox(label='Power 2', options=powers_list, index=powers_list.index(''))
             params['affinity1'] = st.selectbox(label='Affinity 1', options=affinities_list, index=affinities_list.index(''))
             params['affinity2'] = st.selectbox(label='Affinity 2', options=affinities_list, index=affinities_list.index(''))
-            params['is_magic'] = "magic" if st.checkbox(label='Magic?', value=True) else "entirely non-magic, entirely physical"
-            params['has_drawbacks'] = "magic" if st.checkbox(label='Drawbacks?') else "entirely non-magic, entirely physical"
+            params['is_magic'] = st.checkbox(label='Magic?', value=True) 
+            params['has_drawbacks'] = st.checkbox(label='Drawbacks?', value=False)
         
         st.session_state['params'] = params
     
@@ -43,6 +43,10 @@ class ItemGenerator(Generator):
             prompt += " The item has magical properties."
         else:
             prompt += " The item is entirely non-magical and has no special abilities. It's strength comes from its physical properties."
+        if params['has_drawbacks']:
+            prompt += " The item has drawbacks that afflict the user when used."
+        else:
+            prompt += " The item has NO drawbacks that might afflict the user when used."
         if params['power1'] != '':
             prompt += " This item has {power1} power."
         if params['power2'] != '':

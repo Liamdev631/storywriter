@@ -1,1 +1,2 @@
 from .openai_generation_widget import OpenAIGenerationWidget
+from .dalle2_generation_widget import Dalle2GenerationWidget
