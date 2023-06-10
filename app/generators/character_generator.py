@@ -17,28 +17,28 @@ class CharacterGenerator(Generator):
         col1, col2, col3 = st.columns(3)
         
         with col1:
-            params['age'] = st.number_input('Age', value=st.session_state['params'].get('age', 20), min_value=1)
-            params['race_primary'] = st.selectbox('Primary Race', races_list, key='race_primary', index=races_list.index('Human'))
-            params['race_secondary'] = st.selectbox('Secondary Race', races_list, key='race_secondary', index=races_list.index(''))
-            params['alignment'] = st.selectbox('Alignment', alignment_list, key='alignment', index=alignment_list.index(''))
-            params['primary_class'] = st.selectbox('Primary Class', class_list, key='primary_class', index=class_list.index('Bard'))
-            params['secondary_class'] = st.selectbox('Secondary Class', class_list, key='secondary_class', index=class_list.index(''))
-            params['background'] = st.selectbox('Background', background_list, key='background', index=background_list.index('Acolyte'))
+            params['age'] = st.number_input('Age', value=20, min_value=1)
+            params['race_primary'] = st.selectbox('Primary Race', races_list, index=races_list.index('Human'))
+            params['race_secondary'] = st.selectbox('Secondary Race', races_list, index=races_list.index(''))
+            params['alignment'] = st.selectbox('Alignment', alignment_list, index=alignment_list.index(''))
+            params['primary_class'] = st.selectbox('Primary Class', class_list, index=class_list.index('Bard'))
+            params['secondary_class'] = st.selectbox('Secondary Class', class_list, index=class_list.index(''))
+            params['background'] = st.selectbox('Background', background_list, index=background_list.index('Acolyte'))
             
         with col2:
-            params['dexterity'] = st.slider('Dexterity', value=st.session_state['params'].get('dexterity', 5), min_value=1, max_value=20)
-            params['strength'] = st.slider('Strength', value=st.session_state['params'].get('strength', 5), min_value=1, max_value=20)
-            params['constitution'] = st.slider('Constitution', value=st.session_state['params'].get('constitution', 5), min_value=1, max_value=20)
-            params['intelligence'] = st.slider('Intelligence', value=st.session_state['params'].get('intelligence', 5), min_value=1, max_value=20)
-            params['charisma'] = st.slider('Charisma', value=st.session_state['params'].get('charisma', 5), min_value=1, max_value=20)
-            params['wisdom'] = st.slider('Wisdom', value=st.session_state['params'].get('wisdom', 5), min_value=1, max_value=20)
+            params['dexterity'] = st.slider('Dexterity', value=5, min_value=1, max_value=20)
+            params['strength'] = st.slider('Strength', value=5, min_value=1, max_value=20)
+            params['constitution'] = st.slider('Constitution', value=5, min_value=1, max_value=20)
+            params['intelligence'] = st.slider('Intelligence', value= 5, min_value=1, max_value=20)
+            params['charisma'] = st.slider('Charisma', value=5, min_value=1, max_value=20)
+            params['wisdom'] = st.slider('Wisdom', value=5, min_value=1, max_value=20)
                 
         with col3:
-            params['openness'] = st.slider('Openness', value=st.session_state['params'].get('openness', 50), min_value=0, max_value=100, step=5)
-            params['conscientiousness'] = st.slider('Conscientiousness', value=st.session_state['params'].get('conscientiousness', 50), min_value=0, max_value=100, step=5)
-            params['extraversion'] = st.slider('Extraversion', value=st.session_state['params'].get('extraversion', 50), min_value=0, max_value=100, step=5)
-            params['agreeableness'] = st.slider('Agreeableness', value=st.session_state['params'].get('agreeableness', 50), min_value=0, max_value=100, step=5)
-            params['neuroticism'] = st.slider('Neuroticism', value=st.session_state['params'].get('neuroticism', 50), min_value=0, max_value=100, step=5)
+            params['openness'] = st.slider('Openness', value=50, min_value=0, max_value=100, step=5)
+            params['conscientiousness'] = st.slider('Conscientiousness', value=50, min_value=0, max_value=100, step=5)
+            params['extraversion'] = st.slider('Extraversion', value=50, min_value=0, max_value=100, step=5)
+            params['agreeableness'] = st.slider('Agreeableness', value=50, min_value=0, max_value=100, step=5)
+            params['neuroticism'] = st.slider('Neuroticism', value=0, min_value=0, max_value=100, step=5)
 
         st.session_state['params'] = params
     
