@@ -14,7 +14,7 @@ class CharacterGenerator(Generator):
         background_list:    list[str] = load_list("app/resources/dnd/backgrounds.csv")
         editions_list:      list[str] = load_list("app/resources/dnd/editions.csv")
 
-        col1, col2, col3 = st.columns(4)
+        col1, col2, col3 = st.columns(3)
         
         with col1:
             params['age'] = st.number_input('Age', value=st.session_state['params'].get('age', 20), min_value=1)
