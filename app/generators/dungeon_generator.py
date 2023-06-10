@@ -22,7 +22,7 @@ class DungeonGenerator(Generator):
     
     @staticmethod
     def generate(params: dict[str,str]) -> str:
-        prompt: str = "You are an expert DnD Dungeon Master. Design a unique and mysterious {dungeon_type} dungeon for {party_size} players with an average level of {avg_party_level} with {difficulty} difficulty. The dungeon must include {num_encounters} encounters."
+        prompt: str = "You are an expert DnD Dungeon Master. Design a unique and mysterious {dungeon_type} dungeon for {party_size} players with an average level of {avg_party_level} with {difficulty} difficulty. The dungeon must include {num_encounters} encounter(s). For each encounter, list one or two special interactions the players might take advantage of. You may also include special interactions or hidden treasures/areas within the dungeon outside of encounters, which may provide the party with shortcuts, advantages, or special loot."
         
         return prompt.format(**params)
         
