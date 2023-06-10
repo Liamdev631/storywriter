@@ -30,14 +30,14 @@
 
 # String format for logging messages. If logger.datetimeFormat is set, logger messages will default to `%(asctime)s.%(msecs)03d %(message)s`. See [Python's documentation](https://docs.python.org/2.6/library/logging.html#formatter-objects) for available attributes.
 # Default: "%(asctime)s %(message)s"
-# messageFormat = "%(asctime)s %(message)s"
+messageFormat = ""
 
 
 [client]
 
 # Whether to enable st.cache.
 # Default: true
-# caching = true
+caching = true
 
 # If false, makes your Streamlit script not draw to a Streamlit app.
 # Default: true
@@ -70,7 +70,7 @@ showErrorDetails = false
 
 # Run the Python Garbage Collector after each script execution. This can help avoid excess memory use in Streamlit apps, but could introduce delay in rerunning the app script for high-memory-use applications.
 # Default: true
-# postScriptGC = true
+postScriptGC = true
 
 # Handle script rerun requests immediately, rather than waiting for script execution to reach a yield point. This makes Streamlit much more responsive to user interaction, but it can lead to race conditions in apps that mutate session_state data outside of explicit session_state assignment statements.
 # Default: true
@@ -78,7 +78,7 @@ showErrorDetails = false
 
 # Raise an exception after adding unserializable data to Session State. Some execution environments may require serializing all data in Session State, so it may be useful to detect incompatibility during development, or when the execution environment will stop supporting it in the future.
 # Default: false
-# enforceSerializableSessionState = false
+enforceSerializableSessionState = false
 
 
 [server]
@@ -100,7 +100,7 @@ cookieSecret = "b99962fccd6c609c02c0dc879acbdd8b99d0a071c5f0a49d7a71f2a8351e3d9d
 
 # If false, will attempt to open a browser window on start.
 # Default: false unless (1) we are on a Linux box where DISPLAY is unset, or (2) we are running in the Streamlit Atom plugin.
-headless = true
+headless = false
 
 # Automatically rerun script when the file is modified on disk.
 # Default: false
@@ -158,11 +158,11 @@ headless = true
 # Internet address where users should point their browsers in order to connect to the app. Can be IP address or DNS name and path.
 # This is used to: - Set the correct URL for CORS and XSRF protection purposes. - Show the URL on the terminal - Open the browser
 # Default: "localhost"
-#serverAddress = "18.190.160.239"
+serverAddress = "18.190.160.239"
 
 # Whether to send usage statistics to Streamlit.
 # Default: true
-# gatherUsageStats = true
+gatherUsageStats = false
 
 # Port where users should point their browsers in order to connect to the app.
 # This is used to: - Set the correct URL for CORS and XSRF protection purposes. - Show the URL on the terminal - Open the browser
