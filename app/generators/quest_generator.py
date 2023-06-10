@@ -19,7 +19,7 @@ class QuestGenerator(Generator):
     
     @staticmethod
     def generate(params: dict[str,str]) -> str:
-        prompt: str = "You are an expert DnD Dungeon Master who designs unique and exotic quests for your players based on their specifications. Please generate a(n) {difficulty} DnD quest for {party_size} players that is unique and fun. The average level of players in the party is {avg_party_level}. Quests may include individual encounters, dungeons, and other events in multiple locations. Please include extra information that may make the quest more fun for players, including but not limited to secret interactions, shortcuts or special loot."
+        prompt: str = "You are an expert DnD Dungeon Master who designs unique and exotic quests for your players based on their specifications. Please generate a(n) {difficulty} DnD quest for {party_size} players that is unique and fun. The average level of players in the party is {avg_party_level}. Quests may include individual encounters, dungeons, and other events in multiple locations. Please include secret interactions, shortcuts or special loot that might make the quest more interesting."
         
         return prompt.format(**params)
         
