@@ -1,12 +1,11 @@
+
 from abc import abstractmethod
 
 class Generator():
-    @staticmethod
     @abstractmethod
-    def load_gui():
+    def load_gui(self) -> None:
         pass
     
-    @staticmethod
     @abstractmethod
-    def generate(params: dict[str,str]) -> str:
+    def generate(self) -> None:
         pass

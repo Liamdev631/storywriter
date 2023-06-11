@@ -1,10 +1,20 @@
-from .generator import Generator
-import streamlit as st
+from widgets import OpenAIGenerationWidget
+from generators import Generator
 from utils import load_list
+import streamlit as st
 
 class ItemGenerator(Generator):
-    @staticmethod
-    def load_gui():
+    def __init__(self):
+        options_col, result_col = st.columns(2) 
+
+        with options_col:
+            self.load_gui()
+
+        with result_col:
+            if st.button('Generate'):
+                self.generate()
+                
+    def load_gui(self):
         st.title('DnD Magical Item Generator')
         
         races_list: list[str] = load_list("app/resources/dnd/races.csv")
@@ -36,8 +46,9 @@ class ItemGenerator(Generator):
         
         st.session_state['params'] = params
     
-    @staticmethod
-    def generate(params: dict[str,str]) -> str:
+    def generate(self):
+        params: dict[str,str] = st.session_state['params']
+        
         prompt: str = "You are an expert DnD Dungeon Master who designs unique items for your players based on their specifications. Please generate a {item_type} with {rarity} rarity that is unique and fun for DnD players."
         if params['is_magic']:
             prompt += " The item has magical properties."
@@ -62,5 +73,5 @@ class ItemGenerator(Generator):
         if params['alignment'] != '':
             prompt += " This item is must effective when used by one with {alignment} alignment."
             
-        return prompt.format(**params)
+        openai_widget = OpenAIGenerationWidget(self, prompt.format(params))
         

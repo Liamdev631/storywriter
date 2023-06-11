@@ -1,7 +1,6 @@
 import streamlit as st
 from generators import Generator, CharacterGenerator, WorldGenerator, ItemGenerator, QuestGenerator, DungeonGenerator
 from PIL import Image
-from widgets import OpenAIGenerationWidget, Dalle2GenerationWidget
 
 # Name of the website
 favicon = Image.open("app/resources/icons/favicon.ico")
@@ -19,7 +18,7 @@ def on_generator_changed():
 
 with st.sidebar:
     st.markdown('Select a generator below to get started!')
-    st.session_state['selected_generator_name'] = st.selectbox(label="Generator", options=generator_options, index=generator_options.index('Item'), on_change=on_generator_changed)
+    st.session_state['selected_generator_name'] = st.selectbox(label="Generator", options=generator_options, index=generator_options.index('Dungeon'), on_change=on_generator_changed)
 
 def get_generator_by_name(generator_name: str) -> Generator:
     match generator_name:
@@ -38,17 +37,3 @@ def get_generator_by_name(generator_name: str) -> Generator:
 
 # Retrieve the generator instance
 selected_generator: Generator = get_generator_by_name(st.session_state['selected_generator_name'])
-
-options_col, result_col = st.columns(2) 
-
-if selected_generator == None:
-    st.stop()
-
-with options_col:
-    # Load the GUI and store the parameters
-    selected_generator.load_gui()
-
-with result_col:
-    if st.button('Generate', type='primary'):
-        generation_widget = OpenAIGenerationWidget(selected_generator)
-        #image_widget = Dalle2GenerationWidget()

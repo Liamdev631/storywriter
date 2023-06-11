@@ -1,8 +1,18 @@
-from .generator import Generator
+from widgets import OpenAIGenerationWidget
+from generators import Generator
 import streamlit as st
 from utils import load_list
 
 class CharacterGenerator(Generator):
+    def __init__(self):
+        options_col, result_col = st.columns(2) 
+
+        with options_col:
+            self.load_gui()
+
+        with result_col:
+            if st.button('Generate'):
+                self.generate()
     def load_gui(self):
         st.title('DnD Character Generator')
         
@@ -12,7 +22,6 @@ class CharacterGenerator(Generator):
         alignment_list:     list[str] = load_list("app/resources/dnd/alignments.csv")
         class_list:         list[str] = load_list("app/resources/dnd/classes.csv")
         background_list:    list[str] = load_list("app/resources/dnd/backgrounds.csv")
-        editions_list:      list[str] = load_list("app/resources/dnd/editions.csv")
 
         col1, col2, col3 = st.columns(3)
         
@@ -42,8 +51,7 @@ class CharacterGenerator(Generator):
 
         st.session_state['params'] = params
     
-    @staticmethod
-    def generate(params: dict[str,str]) -> str:
+    def generate(self):
         prompt: str = """
         You are an expert DnD Dungeon Master who helps players flesh out their character designs. Given a rough idea of what they're looking for, you help players dreams meet reality.
         Design a character for a 5th edition DnD campaign with the stats listed below. Be sure to include a deep backstory. What is their name? Who were the characters parents? Where is their hometown? What were the two most significant events in their life? What quirks does the character have? What is their alignment and personality? Is your character religious? If so what Deity? What event in their life caused them to choose this particular god or goddess? What profession is the character? What languages do they speak? What are the characters hopes and dreams for the future?
@@ -70,7 +78,9 @@ class CharacterGenerator(Generator):
         Extraversion: {extraversion}%.
         Agreeableness: {agreeableness}%.
         Neuroticism: {neuroticism}%.
+        
+        Please fill the followign character sheet template with details of this new character, keeping the exact same formatting.
         """
         
-        return prompt.format(**params)
+        openai_widget = OpenAIGenerationWidget(self, prompt.format(**st.session_state['params']))
 
