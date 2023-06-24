@@ -4,7 +4,7 @@ from PIL import Image
 
 # Name of the website
 favicon = Image.open("app/resources/icons/favicon.ico")
-st.set_page_config(
+st.set_page_config( # type: ignore
         page_title="DnD - AI FantasyForge",
         page_icon=favicon,
         layout='wide'

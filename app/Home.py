@@ -1,10 +1,10 @@
 import streamlit as st
 from PIL import Image
-from auth0_component import login_button
+from st_oauth import st_oauth
 
 # Name of the website
 favicon = Image.open("app/resources/icons/favicon.ico")
-st.set_page_config(
+st.set_page_config( # type: ignore
     page_title="AI FantasyForge",
     page_icon=favicon,
     layout='wide'
@@ -49,9 +49,6 @@ with col1:
     
     
 with col2:
-    clientId = "z2CFGipjhdeVATUTawXyp6eTJfHeXXB1"
-    domain = "dev-vy2zhuaw3evkpb0k.us.auth0.com"
-    
-    user_info = login_button(clientId, domain = domain)
-    if user_info:
-        st.write(user_info)
+    id = st_oauth('myoauth', 'Click to login via OAuth')
+    st.markdown(id)
+
