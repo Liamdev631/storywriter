@@ -53,4 +53,5 @@ with col2:
     domain = "dev-vy2zhuaw3evkpb0k.us.auth0.com"
     
     user_info = login_button(clientId, domain = domain)
-    st.write(user_info)
+    if user_info:
+        st.write(user_info)
