@@ -1,5 +1,5 @@
 import streamlit as st
-from generators import Generator, CharacterGenerator, WorldGenerator, ItemGenerator, QuestGenerator, DungeonGenerator
+from generators import CharacterGenerator, WorldGenerator, ItemGenerator, QuestGenerator, DungeonGenerator
 from PIL import Image
 
 # Name of the website
@@ -20,7 +20,7 @@ with st.sidebar:
     st.markdown('Select a generator below to get started!')
     st.session_state['selected_generator_name'] = st.selectbox(label="Generator", options=generator_options, index=generator_options.index('Dungeon'), on_change=on_generator_changed)
 
-def get_generator_by_name(generator_name: str) -> Generator:
+def get_generator_by_name(generator_name: str) -> object:
     match generator_name:
         case "World":
             return WorldGenerator()
@@ -36,4 +36,4 @@ def get_generator_by_name(generator_name: str) -> Generator:
             return WorldGenerator()
 
 # Retrieve the generator instance
-selected_generator: Generator = get_generator_by_name(st.session_state['selected_generator_name'])
+selected_generator = get_generator_by_name(st.session_state['selected_generator_name'])

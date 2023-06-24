@@ -1,9 +1,8 @@
 from widgets import OpenAIGenerationWidget
-from generators import Generator
 from utils import load_list
 import streamlit as st
 
-class ItemGenerator(Generator):
+class ItemGenerator():
     def __init__(self):
         options_col, result_col = st.columns(2) 
 
@@ -72,6 +71,8 @@ class ItemGenerator(Generator):
             prompt += " This item was created by the {origin_race} race."
         if params['alignment'] != '':
             prompt += " This item is must effective when used by one with {alignment} alignment."
-            
-        openai_widget = OpenAIGenerationWidget(self, prompt.format(params))
+        
+        params = st.session_state['params']
+        prompt = prompt.format(**params)
+        openai_widget = OpenAIGenerationWidget(prompt)
         

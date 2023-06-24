@@ -1,11 +1,10 @@
-from generators import Generator
 import openai
 import streamlit as st
 import openai
 from openai.error import AuthenticationError, RateLimitError
 
 class OpenAIGenerationWidget:
-    def __init__(self, generator: Generator, prompt: str):
+    def __init__(self, prompt: str):
         openai_api_key: str = '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'
         whole_response: str = ""
         try:
@@ -31,7 +30,7 @@ class OpenAIGenerationWidget:
                 st.warning("The server had an error while processing your request. Retry your request after a brief wait and contact us if the issue persists. Check the status page.")
         except RateLimitError:
             st.warning('Rate limit reached. Just wait a minute and try again, because of the key everyone is sharing.')
-        st.download_button(label='Save', data=whole_response, mime='txt')
+        self.result = whole_response
         # messages = [
         #     {'role': 'user', 'content': 'From the following text, describe the physical appearance of the subject as accurately and descriptively as possible in less than 50 words. Do not include ANY non-visual information. If no visual information exists, you may create it yourself based on the nature of the subject:'},
         #     {'role': 'user', 'content': whole_response}

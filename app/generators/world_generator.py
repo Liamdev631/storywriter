@@ -1,9 +1,8 @@
 from widgets import OpenAIGenerationWidget
-from utils import load_list
-from generators import Generator
+from utils import load_list 
 import streamlit as st
 
-class WorldGenerator(Generator):
+class WorldGenerator():
     def __init__(self):
         options_col, result_col = st.columns(2) 
 
@@ -34,5 +33,7 @@ class WorldGenerator(Generator):
     def generate(self) -> None:
         prompt: str = "You are an expert DnD Dungeon Master who builds magnificent and diverse worlds for fantasy gaming. Given a rough idea of what they're looking for, you help players dreams meet reality. Your details of the worlds should include the major continents. The development of the world should be consistant with it's age. For example, a young world of several hundred years likely will not contain many great nations but an older world of several thousand years should have advanced enough to contruct massive empires. Make no mention of the game or the party and do not break the 4th wall. Your responses must be styled like a historical document, being very dense with information and without much filler. Design a {world_type} world. Civilization and culture first appeared on this world {world_age} years ago. In this world, magic is available to {magic_prevalance}% of the population."
         
-        openai_widget = OpenAIGenerationWidget(self, prompt.format(**st.session_state['params']))
+        params = st.session_state['params']
+        prompt = prompt.format(**params)
+        openai_widget = OpenAIGenerationWidget(prompt)
         

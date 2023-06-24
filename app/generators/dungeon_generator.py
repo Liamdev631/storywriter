@@ -1,9 +1,8 @@
 from widgets import OpenAIGenerationWidget
-from generators import Generator
 import streamlit as st
 from utils import load_list
 
-class DungeonGenerator(Generator):
+class DungeonGenerator():
     def __init__(self):
         options_col, result_col = st.columns(2) 
 
@@ -35,5 +34,6 @@ class DungeonGenerator(Generator):
         prompt: str = "You are an expert DnD Dungeon Master. Design a unique and mysterious {dungeon_type} dungeon for {party_size} players with an average level of {avg_party_level} with {difficulty} difficulty. The dungeon must include {num_encounters} encounter(s). For each encounter, list one or two special interactions the players might take advantage of. You may also include special interactions or hidden treasures/areas within the dungeon outside of encounters, which may provide the party with shortcuts, advantages, or special loot."
         
         params = st.session_state['params']
-        openai_widget = OpenAIGenerationWidget(self, prompt.format(**params))
+        prompt = prompt.format(**params)
+        openai_widget = OpenAIGenerationWidget(prompt)
         
