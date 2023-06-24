@@ -1,5 +1,6 @@
 import streamlit as st
 from PIL import Image
+from auth0_component import login_button
 
 # Name of the website
 favicon = Image.open("app/resources/icons/favicon.ico")
@@ -48,4 +49,8 @@ with col1:
     
     
 with col2:
-    pass
+    clientId = "z2CFGipjhdeVATUTawXyp6eTJfHeXXB1"
+    domain = "dev-vy2zhuaw3evkpb0k.us.auth0.com"
+    
+    user_info = login_button(clientId, domain = domain)
+    st.write(user_info)
