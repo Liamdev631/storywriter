@@ -10,15 +10,21 @@ RUN apt-get update && apt-get install -y \
     software-properties-common \
     git \
     openssh-client \
-    openssh-server \
-    && rm -rf /var/lib/apt/lists/*
+    openssh-server
+
+RUN rm -rf /var/lib/apt/lists/*
 
 ARG GITHUB_TOKEN
 ENV GITHUB_TOKEN=${GITHUB_TOKEN}
 
-RUN git config --global url."https://${GITHUB_TOKEN}@github.com/".insteadOf "https://github.com/"
+RUN git config --global url."https://x-access-token:${GITHUB_TOKEN}@github.com/".insteadOf "https://github.com/"
 
 RUN git clone https://github.com/Liamdev631/storywriter.git .
+
+RUN bash -c 'echo -e "\
+[general]\n\
+email = \"aistoryforgeapp@gmail.com\"\n\
+" > /root/.streamlit/credentials.toml'
 
 RUN pip3 install -r requirements.txt
 
